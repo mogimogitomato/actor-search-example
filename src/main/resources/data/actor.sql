@@ -1,3 +1,4 @@
+use sample_db;
 create table if not exists actor (
   id int not null auto_increment,
   name varchar(30) not null,

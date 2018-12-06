@@ -1,3 +1,4 @@
+use sample_db;
 create table if not exists prefecture (
   id smallint not null,
   name varchar(6) not null,

@@ -1,3 +1,4 @@
+use sample_db;
 insert into actor (name, height, blood, birthday, birthplace_id) values
 ('丹波哲郎', 175, 'O',  '1922-07-17', 13),
 ('森田健作', 175, 'O',  '1949-12-16', 13),
