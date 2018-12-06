@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.context.MessageSource;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
@@ -77,8 +79,8 @@ public class ActorController {
     logger.debug("Actor + detail");
     ModelAndView mv = new ModelAndView();
     mv.setViewName("Actor/detail");
-    Actor actor = actorRepository.findOne(id);
-    mv.addObject("actor", actor);
+    Optional<Actor> actorOpt = actorRepository.findById(id);
+    actorOpt.ifPresent(actor -> mv.addObject("actor", actor));
     return mv;
   }
 
@@ -125,7 +127,7 @@ public class ActorController {
   @RequestMapping(value = "/actor/delete/{id}", method = RequestMethod.GET)
   public String delete(@PathVariable Integer id, RedirectAttributes attributes, Model model) {
     logger.debug("Actor + delete");
-    actorRepository.delete(id);
+    actorRepository.deleteById(id);
     attributes.addFlashAttribute("deleteMessage", "delete ID:" + id);
     return "redirect:/actor";
   }
